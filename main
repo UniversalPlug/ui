@@ -1613,7 +1613,7 @@ Bracket.Assets = {
 		OptionContainer.Name = "OptionContainer"
 		OptionContainer.ZIndex = 4
 		OptionContainer.Visible = false
-		OptionContainer.Size = UDim2.new(0, 100, 0, 400)  -- Increased height from 100 to 200
+		OptionContainer.Size = UDim2.new(0, 100, 0, 100)
 		OptionContainer.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		OptionContainer.Position = UDim2.new(0, 100, 0, 100)
 		OptionContainer.Active = true
@@ -4097,7 +4097,7 @@ Bracket.Elements = {
 				else
 					Colorpicker.Value[1] = Window.RainbowHue
 					Colorpicker.Value[6] = Bracket.Utilities.TableToColor(Colorpicker.Value)
-					ColorpickerAsset.Color.BackgroundColor3 = Colorpicker.Value[6]
+					ColorpickerAsset.BackgroundColor3 = Colorpicker.Value[6]
 
 					Window.Flags[Colorpicker.Flag] = Colorpicker.Value
 					Colorpicker.Callback(Colorpicker.Value, Colorpicker.Value[6])
@@ -4107,7 +4107,7 @@ Bracket.Elements = {
 		Colorpicker:GetPropertyChangedSignal("Value"):Connect(function(Value)
 			Value[6] = Bracket.Utilities.TableToColor(Value)
 			Colorpicker.ColorConfig[1] = Colorpicker.Value[5]
-			ColorpickerAsset.Color.BackgroundColor3 = Value[6]
+			ColorpickerAsset.BackgroundColor3 = Value[6]
 
 			PaletteAsset.Rainbow.Tick.BackgroundColor3 = Colorpicker.Value[5]
 				and Window.Color or Color3.fromRGB(63, 63, 63)

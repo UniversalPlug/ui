@@ -3278,26 +3278,20 @@ Bracket.Elements = {
 
 					Keybind.Callback(Keybind.Value, true, Keybind.Toggle)
 				end
-			end
+			elseif Input.UserInputType.Name == "MouseButton1" then -- Added this line
+				if Keybind.WaitingForBind then
+					Keybind.Value = "MouseButton1" -- Set the value to left mouse button
+					return
+				end
 
-			if Keybind.Mouse then
-				local Key = Input.UserInputType.Name
-
-				if Key == "MouseButton1" or Key == "MouseButton2" or Key == "MouseButton3" then
-					if Keybind.WaitingForBind then
-						Keybind.Value = Key
-						return
+				if not Keybind.Binding and Keybind.Value == "MouseButton1" then
+					Keybind.Toggle = not Keybind.Toggle
+					if Keybind.ListMimic then
+						Keybind.ListMimic.ColorConfig[1] = true
+						Keybind.ListMimic.Asset.Tick.BackgroundColor3 = Window.Color
 					end
 
-					if Key == Keybind.Value and not Keybind.Binding then
-						Keybind.Toggle = not Keybind.Toggle
-						if Keybind.ListMimic then
-							Keybind.ListMimic.ColorConfig[1] = true
-							Keybind.ListMimic.Asset.Tick.BackgroundColor3 = Window.Color
-						end
-
-						Keybind.Callback(Keybind.Value, true, Keybind.Toggle)
-					end
+					Keybind.Callback(Keybind.Value, true, Keybind.Toggle)
 				end
 			end
 		end)
@@ -3681,7 +3675,7 @@ Bracket.Elements = {
 					)
 					OptionContainerAsset.Size = UDim2.fromOffset(
 						DropdownAsset.Background.AbsoluteSize.X,
-						math.clamp(OptionContainerAsset.ListLayout.AbsoluteContentSize.Y, 14, 84) + 6
+						math.clamp(OptionContainerAsset.ListLayout.AbsoluteContentSize.Y, 14, 84) + 35
 						-- OptionContainerAsset.ListLayout.AbsoluteContentSize.Y + 2
 					)
 				end)
@@ -4097,7 +4091,7 @@ Bracket.Elements = {
 				else
 					Colorpicker.Value[1] = Window.RainbowHue
 					Colorpicker.Value[6] = Bracket.Utilities.TableToColor(Colorpicker.Value)
-					ColorpickerAsset.BackgroundColor3 = Colorpicker.Value[6]
+					ColorpickerAsset.Color.BackgroundColor3 = Colorpicker.Value[6]
 
 					Window.Flags[Colorpicker.Flag] = Colorpicker.Value
 					Colorpicker.Callback(Colorpicker.Value, Colorpicker.Value[6])
@@ -4107,7 +4101,7 @@ Bracket.Elements = {
 		Colorpicker:GetPropertyChangedSignal("Value"):Connect(function(Value)
 			Value[6] = Bracket.Utilities.TableToColor(Value)
 			Colorpicker.ColorConfig[1] = Colorpicker.Value[5]
-			ColorpickerAsset.BackgroundColor3 = Value[6]
+			ColorpickerAsset.Color.BackgroundColor3 = Value[6]
 
 			PaletteAsset.Rainbow.Tick.BackgroundColor3 = Colorpicker.Value[5]
 				and Window.Color or Color3.fromRGB(63, 63, 63)

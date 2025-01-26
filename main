@@ -3293,6 +3293,21 @@ Bracket.Elements = {
 
 					Keybind.Callback(Keybind.Value, true, Keybind.Toggle)
 				end
+			elseif Input.UserInputType == Enum.UserInputType.Touch then -- Added this line for mobile support
+				if Keybind.WaitingForBind then
+					Keybind.Value = "Touch" -- Set the value to touch
+					return
+				end
+
+				if not Keybind.Binding and Keybind.Value == "Touch" then
+					Keybind.Toggle = not Keybind.Toggle
+					if Keybind.ListMimic then
+						Keybind.ListMimic.ColorConfig[1] = true
+						Keybind.ListMimic.Asset.Tick.BackgroundColor3 = Window.Color
+					end
+
+					Keybind.Callback(Keybind.Value, true, Keybind.Toggle)
+				end
 			end
 		end)
 		UserInputService.InputEnded:Connect(function(Input, GameProcessedEvent)

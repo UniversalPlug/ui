@@ -2668,12 +2668,15 @@ Bracket.Elements = {
 		end
 		function Window.LoadConfig(Self, FolderName, Name)
 			if table.find(Bracket.Utilities.GetConfigs(FolderName), Name) then
-				local DecodedJSON = HttpService:JSONDecode(
-					readfile(FolderName .. "\\Configs\\" .. Name .. ".json")
-				)
-				for Flag, Value in pairs(DecodedJSON) do
-					local Element = Bracket.Utilities.FindElementByFlag(Self.Elements, Flag)
-					if Element ~= nil then Element.Value = Value end
+				local filePath = FolderName .. "\\Configs\\" .. Name .. ".json"
+				if isfile(filePath) then  -- Check if the file exists
+					local DecodedJSON = HttpService:JSONDecode(readfile(filePath))
+					for Flag, Value in pairs(DecodedJSON) do
+						local Element = Bracket.Utilities.FindElementByFlag(Self.Elements, Flag)
+						if Element ~= nil then Element.Value = Value end
+					end
+				else
+					warn("File not found: " .. filePath)  -- Log a warning if the file does not exist
 				end
 			end
 		end

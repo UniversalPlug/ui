@@ -349,9 +349,8 @@ local espLibrary = {
         return
     end
   
-    espLibrary.chamsCache[player] = instanceNew("Highlight", {
-        Parent = screenGui,
-    });
+    espLibrary.chamsCache[player] = instanceNew("Highlight");
+    espLibrary.chamsCache[player].Parent = screenGui;
   end
   
   function espLibrary.removeChams(player)
